@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Puissance 4</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🔴🟡 Puissance 4</h1>
+      <p class="subtitle">Alignez 4 jetons pour gagner !</p>
+    </header>
+
+    <div class="game-layout">
+      <aside class="sidebar">
+        <section class="stats">
+          <h2>Tour actuel</h2>
+          <div class="current-player">
+            <span id="current-player-display" class="player-indicator joueur1">🔴 Joueur 1</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Coups joués :</span>
+            <span id="move-count" class="stat-value">0</span>
+          </div>
+        </section>
+
+        <section class="actions">
+          <button id="btn-reset" class="btn-secondary">🔄 Nouvelle partie</button>
+        </section>
+
+        <section class="legend">
+          <h2>Légende</h2>
+          <div class="legend-item">
+            <span class="token joueur1">🔴</span>
+            <span>Joueur 1</span>
+          </div>
+          <div class="legend-item">
+            <span class="token joueur2">🟡</span>
+            <span>Joueur 2</span>
+          </div>
+          <div class="legend-item">
+            <span class="token vide">⚪</span>
+            <span>Case vide</span>
+          </div>
+        </section>
+      </aside>
+
+      <main class="game-area">
+        <div id="game-board" class="board">
+          <!-- Le plateau sera généré ici par JavaScript -->
+        </div>
+        <div id="game-message" class="message"></div>
+      </main>
+    </div>
+
+    <section class="test-progress">
+      <h2>Progression des tests</h2>
+      <div class="progress-bar-container">
+        <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+      </div>
+      <div id="test-stats" class="test-stats">
+        <span id="tests-passed">0</span> / <span id="tests-total">0</span> tests réussis
+      </div>
+      <div id="test-details" class="test-details"></div>
+    </section>
+  </div>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
