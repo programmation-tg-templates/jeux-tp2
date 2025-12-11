@@ -56,7 +56,7 @@ npm test
 Pour voir les résultats en temps réel :
 
 ```bash
-npm run test:watch
+npm run watch
 ```
 
 Les résultats des tests s'affichent également dans l'interface web !
@@ -64,6 +64,7 @@ Les résultats des tests s'affichent également dans l'interface web !
 ## Description du jeu
 
 Implémentez les fonctions permettant de jouer au Puissance 4 :
+
 - Le plateau fait **6 lignes × 7 colonnes** (42 cases)
 - Les jetons **tombent** par gravité (ils s'empilent du bas vers le haut)
 - Un joueur gagne en alignant **4 jetons** (horizontal, vertical ou diagonal)
@@ -122,12 +123,12 @@ Toutes les fonctions sont dans [src/index.ts](src/index.ts).
 
 ### Aide-mémoire : Parcours de tableau
 
-| Direction | Formule indice | Exemple (largeur=7) |
-|-----------|----------------|---------------------|
-| Ligne (→) | `ligne * 7 + col` | Ligne 2 : indices 14 à 20 |
-| Colonne (↓) | `ligne * 7 + col` | Colonne 3 : 3, 10, 17, 24, 31, 38 |
-| Diagonale \ | `ligne * 7 + col` | (0,0)→(1,1)→(2,2) : 0, 8, 16 |
-| Diagonale / | `ligne * 7 + col` | (0,3)→(1,2)→(2,1) : 3, 9, 15 |
+| Direction    | Formule indice    | Exemple (largeur=7)               |
+| ------------ | ----------------- | --------------------------------- |
+| Ligne (→)    | `ligne * 7 + col` | Ligne 2 : indices 14 à 20         |
+| Colonne (↓)  | `ligne * 7 + col` | Colonne 3 : 3, 10, 17, 24, 31, 38 |
+| Diagonale \  | `ligne * 7 + col` | (0,0)→(1,1)→(2,2) : 0, 8, 16      |
+| Diagonale /  | `ligne * 7 + col` | (0,3)→(1,2)→(2,1) : 3, 9, 15      |
 
 ## Structure du projet
 

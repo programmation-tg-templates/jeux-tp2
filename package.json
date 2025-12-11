@@ -4,15 +4,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "test": "vitest run",
-    "test:watch": "vitest --reporter=verbose --reporter=json --outputFile=public/test-results.json"
+    "watch": "vitest --reporter=verbose --reporter=json --outputFile=public/test-results.json"
   },
   "devDependencies": {
-    "@types/node": "^22.10.1",
-    "typescript": "^5.7.2",
-    "vite": "^6.0.1",
-    "vitest": "^2.1.8"
+    "@types/node": "^24.10.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.7",
+    "vitest": "^4.0.15"
   },
   "private": true
 }
