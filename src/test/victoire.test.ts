@@ -1,17 +1,24 @@
 // Tests unitaires écrits par l'enseignant. Ne modifiez pas ce fichier.
 
-import { creerPlateau, placerJeton, verifierLigne, verifierColonne, verifierDiagonales } from '../index';
-import type { PlateauPuissance4 } from '../index';
+import { beforeEach, describe, expect, test } from "vitest";
+import type { PlateauPuissance4 } from "../index";
+import {
+  creerPlateau,
+  placerJeton,
+  verifierColonne,
+  verifierDiagonales,
+  verifierLigne,
+} from "../index";
 
-describe('Détection de victoire', () => {
+describe("Détection de victoire", () => {
   let plateau: PlateauPuissance4;
 
   beforeEach(() => {
     plateau = creerPlateau();
   });
 
-  describe('verifierLigne', () => {
-    test('détecte 4 jetons alignés horizontalement', () => {
+  describe("verifierLigne", () => {
+    test("détecte 4 jetons alignés horizontalement", () => {
       // Placer 4 jetons joueur1 horizontalement (ligne 5, colonnes 0-3)
       placerJeton(plateau, 0, "joueur1");
       placerJeton(plateau, 1, "joueur1");
@@ -21,7 +28,7 @@ describe('Détection de victoire', () => {
       expect(verifierLigne(plateau, "joueur1")).toBe(true);
     });
 
-    test('retourne false si seulement 3 jetons alignés', () => {
+    test("retourne false si seulement 3 jetons alignés", () => {
       placerJeton(plateau, 0, "joueur1");
       placerJeton(plateau, 1, "joueur1");
       placerJeton(plateau, 2, "joueur1");
@@ -29,7 +36,7 @@ describe('Détection de victoire', () => {
       expect(verifierLigne(plateau, "joueur1")).toBe(false);
     });
 
-    test('retourne false si alignement interrompu', () => {
+    test("retourne false si alignement interrompu", () => {
       placerJeton(plateau, 0, "joueur1");
       placerJeton(plateau, 1, "joueur1");
       placerJeton(plateau, 2, "joueur2"); // Interruption
@@ -38,7 +45,7 @@ describe('Détection de victoire', () => {
       expect(verifierLigne(plateau, "joueur1")).toBe(false);
     });
 
-    test('détecte alignement au milieu du plateau', () => {
+    test("détecte alignement au milieu du plateau", () => {
       // Ligne 5, colonnes 2-5
       placerJeton(plateau, 2, "joueur2");
       placerJeton(plateau, 3, "joueur2");
@@ -48,7 +55,7 @@ describe('Détection de victoire', () => {
       expect(verifierLigne(plateau, "joueur2")).toBe(true);
     });
 
-    test('ne détecte pas alignement d\'un autre joueur', () => {
+    test("ne détecte pas alignement d'un autre joueur", () => {
       placerJeton(plateau, 0, "joueur1");
       placerJeton(plateau, 1, "joueur1");
       placerJeton(plateau, 2, "joueur1");
@@ -58,8 +65,8 @@ describe('Détection de victoire', () => {
     });
   });
 
-  describe('verifierColonne', () => {
-    test('détecte 4 jetons alignés verticalement', () => {
+  describe("verifierColonne", () => {
+    test("détecte 4 jetons alignés verticalement", () => {
       // Colonne 3, 4 jetons joueur1
       placerJeton(plateau, 3, "joueur1");
       placerJeton(plateau, 3, "joueur1");
@@ -69,7 +76,7 @@ describe('Détection de victoire', () => {
       expect(verifierColonne(plateau, "joueur1")).toBe(true);
     });
 
-    test('retourne false si seulement 3 jetons empilés', () => {
+    test("retourne false si seulement 3 jetons empilés", () => {
       placerJeton(plateau, 2, "joueur2");
       placerJeton(plateau, 2, "joueur2");
       placerJeton(plateau, 2, "joueur2");
@@ -77,7 +84,7 @@ describe('Détection de victoire', () => {
       expect(verifierColonne(plateau, "joueur2")).toBe(false);
     });
 
-    test('retourne false si alignement interrompu', () => {
+    test("retourne false si alignement interrompu", () => {
       placerJeton(plateau, 4, "joueur1");
       placerJeton(plateau, 4, "joueur1");
       placerJeton(plateau, 4, "joueur2"); // Interruption
@@ -87,7 +94,7 @@ describe('Détection de victoire', () => {
       expect(verifierColonne(plateau, "joueur1")).toBe(false);
     });
 
-    test('détecte alignement dans différentes colonnes', () => {
+    test("détecte alignement dans différentes colonnes", () => {
       for (let i = 0; i < 4; i++) {
         placerJeton(plateau, 6, "joueur2");
       }
@@ -96,8 +103,8 @@ describe('Détection de victoire', () => {
     });
   });
 
-  describe('verifierDiagonales', () => {
-    test('détecte diagonale descendante (\\)', () => {
+  describe("verifierDiagonales", () => {
+    test("détecte diagonale descendante (\\)", () => {
       // Diagonale \ : (0,5), (1,4), (2,3), (3,2)
       placerJeton(plateau, 0, "joueur1"); // ligne 5
 
@@ -116,7 +123,7 @@ describe('Détection de victoire', () => {
       expect(verifierDiagonales(plateau, "joueur1")).toBe(true);
     });
 
-    test('détecte diagonale montante (/)', () => {
+    test("détecte diagonale montante (/)", () => {
       // Diagonale / : (3,5), (2,4), (1,3), (0,2)
       placerJeton(plateau, 3, "joueur2"); // ligne 5
 
@@ -135,7 +142,7 @@ describe('Détection de victoire', () => {
       expect(verifierDiagonales(plateau, "joueur2")).toBe(true);
     });
 
-    test('retourne false sans diagonale complète', () => {
+    test("retourne false sans diagonale complète", () => {
       placerJeton(plateau, 0, "joueur1");
       placerJeton(plateau, 1, "joueur2");
       placerJeton(plateau, 1, "joueur1");

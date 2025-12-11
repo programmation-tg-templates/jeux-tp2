@@ -1,7 +1,8 @@
 // Tests unitaires écrits par l'enseignant. Ne modifiez pas ce fichier.
 
-import { creerPlateau, placerJeton } from '../index';
+import { beforeEach, describe, expect, test } from "vitest";
 import type { PlateauPuissance4 } from '../index';
+import { creerPlateau, placerJeton } from '../index';
 
 describe('Placement de jetons', () => {
   let plateau: PlateauPuissance4;

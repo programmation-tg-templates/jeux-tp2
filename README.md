@@ -38,7 +38,7 @@ npm install
 Pour voir votre jeu en action dans le navigateur :
 
 ```bash
-npm run dev
+npm start
 ```
 
 Puis ouvrez votre navigateur à l'adresse indiquée (généralement `http://localhost:5173`).
@@ -49,14 +49,6 @@ Pour exécuter les tests une seule fois :
 
 ```bash
 npm test
-```
-
-### Lancer les tests en mode watch
-
-Pour voir les résultats en temps réel :
-
-```bash
-npm run watch
 ```
 
 Les résultats des tests s'affichent également dans l'interface web !
@@ -135,17 +127,17 @@ Toutes les fonctions sont dans [src/index.ts](src/index.ts).
 ```
 jeux-tp2-puissance4/
 ├── src/
+│   ├── app.ts                # Le code de l'interface graphique (NE PAS MODIFIER)
 │   ├── index.ts              # Votre code ici
+│   ├── style.css             # Les styles CSS de l'interface graphique
 │   └── test/                 # Tests (NE PAS MODIFIER)
 │       ├── plateau.test.ts
 │       ├── gravite.test.ts
 │       ├── jeu.test.ts
 │       ├── victoire.test.ts
 │       └── bonus.test.ts
-├── public/                   # Interface graphique
-│   ├── index.html
-│   ├── style.css
-│   └── app.js
+├── public/                   # Le répertoire où sont publiés les résultats de tests
+├── index.html
 ├── package.json
 ├── tsconfig.json
 ├── vite.config.ts

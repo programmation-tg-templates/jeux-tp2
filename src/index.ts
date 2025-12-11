@@ -4,11 +4,12 @@
 // Types pour le jeu Puissance 4
 // ============================================================================
 
-export type CaseP4 = "vide" | "joueur1" | "joueur2";
+export type JoueurP4 = "joueur1" | "joueur2";
+export type CaseP4 = JoueurP4 | "vide";
 export type PlateauPuissance4 = {
-  largeur: number;   // 7
-  hauteur: number;   // 6
-  cases: CaseP4[];   // Tableau 1D
+  largeur: number; // 7
+  hauteur: number; // 6
+  cases: CaseP4[]; // Tableau 1D
 };
 
 // ============================================================================
@@ -32,7 +33,10 @@ export function creerPlateau(): PlateauPuissance4 {
  * @returns Numéro de ligne libre (0 à 5), ou null si colonne pleine
  * @example obtenirPremiereLigneDispo(plateau, 3) // retourne 5 si colonne vide
  */
-export function obtenirPremiereLigneDispo(plateau: PlateauPuissance4, colonne: number): number | null {
+export function obtenirPremiereLigneDispo(
+  plateau: PlateauPuissance4,
+  colonne: number,
+): number | null {
   throw new Error("À implémenter");
 }
 
@@ -47,7 +51,11 @@ export function obtenirPremiereLigneDispo(plateau: PlateauPuissance4, colonne: n
  * @param joueur - "joueur1" ou "joueur2"
  * @returns true si le jeton a été placé, false si la colonne est pleine
  */
-export function placerJeton(plateau: PlateauPuissance4, colonne: number, joueur: "joueur1" | "joueur2"): boolean {
+export function placerJeton(
+  plateau: PlateauPuissance4,
+  colonne: number,
+  joueur: JoueurP4,
+): boolean {
   throw new Error("À implémenter");
 }
 
@@ -57,7 +65,10 @@ export function placerJeton(plateau: PlateauPuissance4, colonne: number, joueur:
  * @param joueur - Type de case à vérifier
  * @returns true si 4 jetons alignés horizontalement, false sinon
  */
-export function verifierLigne(plateau: PlateauPuissance4, joueur: CaseP4): boolean {
+export function verifierLigne(
+  plateau: PlateauPuissance4,
+  joueur: JoueurP4,
+): boolean {
   throw new Error("À implémenter");
 }
 
@@ -71,7 +82,10 @@ export function verifierLigne(plateau: PlateauPuissance4, joueur: CaseP4): boole
  * @param joueur - Type de case à vérifier
  * @returns true si 4 jetons alignés verticalement, false sinon
  */
-export function verifierColonne(plateau: PlateauPuissance4, joueur: CaseP4): boolean {
+export function verifierColonne(
+  plateau: PlateauPuissance4,
+  joueur: JoueurP4,
+): boolean {
   throw new Error("À implémenter");
 }
 
@@ -82,7 +96,10 @@ export function verifierColonne(plateau: PlateauPuissance4, joueur: CaseP4): boo
  * @param joueur - Type de case à vérifier
  * @returns true si 4 jetons alignés en diagonale, false sinon
  */
-export function verifierDiagonales(plateau: PlateauPuissance4, joueur: CaseP4): boolean {
+export function verifierDiagonales(
+  plateau: PlateauPuissance4,
+  joueur: JoueurP4,
+): boolean {
   throw new Error("À implémenter");
 }
 
