@@ -4,11 +4,12 @@
 // Types pour le jeu Puissance 4
 // ============================================================================
 
-export type CaseP4 = "vide" | "joueur1" | "joueur2";
+export type JoueurP4 = "joueur1" | "joueur2";
+export type CaseP4 = JoueurP4 | "vide";
 export type PlateauPuissance4 = {
-  largeur: number;   // 7
-  hauteur: number;   // 6
-  cases: CaseP4[];   // Tableau 1D
+  largeur: number; // 7
+  hauteur: number; // 6
+  cases: CaseP4[]; // Tableau 1D
 };
 
 // ============================================================================
@@ -21,7 +22,19 @@ export type PlateauPuissance4 = {
  * @example creerPlateau() // retourne un plateau 6×7 vide
  */
 export function creerPlateau(): PlateauPuissance4 {
-  throw new Error("À implémenter");
+  return {
+    largeur: 7,
+    hauteur: 6,
+    cases: new Array(6 * 7).fill("vide"),
+  };
+}
+
+function obtenirIndice(
+  plateau: PlateauPuissance4,
+  ligne: number,
+  colonne: number,
+): number {
+  return ligne * plateau.largeur + colonne;
 }
 
 /**
@@ -32,8 +45,17 @@ export function creerPlateau(): PlateauPuissance4 {
  * @returns Numéro de ligne libre (0 à 5), ou null si colonne pleine
  * @example obtenirPremiereLigneDispo(plateau, 3) // retourne 5 si colonne vide
  */
-export function obtenirPremiereLigneDispo(plateau: PlateauPuissance4, colonne: number): number | null {
-  throw new Error("À implémenter");
+export function obtenirPremiereLigneDispo(
+  plateau: PlateauPuissance4,
+  colonne: number,
+): number | null {
+  for (let ligne = plateau.hauteur - 1; ligne >= 0; ligne--) {
+    const indice = obtenirIndice(plateau, ligne, colonne);
+    if (plateau.cases[indice] === "vide") {
+      return ligne;
+    }
+  }
+  return null; // Colonne pleine
 }
 
 // ============================================================================
@@ -47,8 +69,19 @@ export function obtenirPremiereLigneDispo(plateau: PlateauPuissance4, colonne: n
  * @param joueur - "joueur1" ou "joueur2"
  * @returns true si le jeton a été placé, false si la colonne est pleine
  */
-export function placerJeton(plateau: PlateauPuissance4, colonne: number, joueur: "joueur1" | "joueur2"): boolean {
-  throw new Error("À implémenter");
+export function placerJeton(
+  plateau: PlateauPuissance4,
+  colonne: number,
+  joueur: JoueurP4,
+): boolean {
+  const ligne = obtenirPremiereLigneDispo(plateau, colonne);
+  if (ligne !== null) {
+    const indice = obtenirIndice(plateau, ligne, colonne);
+    plateau.cases[indice] = joueur;
+    return true;
+  } else {
+    return false; // Colonne pleine
+  }
 }
 
 /**
@@ -57,8 +90,26 @@ export function placerJeton(plateau: PlateauPuissance4, colonne: number, joueur:
  * @param joueur - Type de case à vérifier
  * @returns true si 4 jetons alignés horizontalement, false sinon
  */
-export function verifierLigne(plateau: PlateauPuissance4, joueur: CaseP4): boolean {
-  throw new Error("À implémenter");
+export function verifierLigne(
+  plateau: PlateauPuissance4,
+  joueur: JoueurP4,
+): boolean {
+  for (let ligne = 0; ligne < plateau.hauteur; ligne++) {
+    let compteur = 0;
+
+    for (let colonne = 0; colonne < plateau.largeur; colonne++) {
+      const indice = obtenirIndice(plateau, ligne, colonne);
+      if (plateau.cases[indice] === joueur) {
+        compteur++;
+        if (compteur === 4) {
+          return true; // Victoire trouvée
+        }
+      } else {
+        compteur = 0; // Réinitialiser le compteur
+      }
+    }
+  }
+  return false; // Pas de victoire trouvée
 }
 
 // ============================================================================
@@ -71,8 +122,61 @@ export function verifierLigne(plateau: PlateauPuissance4, joueur: CaseP4): boole
  * @param joueur - Type de case à vérifier
  * @returns true si 4 jetons alignés verticalement, false sinon
  */
-export function verifierColonne(plateau: PlateauPuissance4, joueur: CaseP4): boolean {
-  throw new Error("À implémenter");
+export function verifierColonne(
+  plateau: PlateauPuissance4,
+  joueur: JoueurP4,
+): boolean {
+  for (let colonne = 0; colonne < plateau.largeur; colonne++) {
+    let compteur = 0;
+
+    for (let ligne = 0; ligne < plateau.hauteur; ligne++) {
+      const indice = obtenirIndice(plateau, ligne, colonne);
+      if (plateau.cases[indice] === joueur) {
+        compteur++;
+        if (compteur === 4) {
+          return true; // Victoire trouvée
+        }
+      } else {
+        compteur = 0; // Réinitialiser le compteur
+      }
+    }
+  }
+  return false; // Pas de victoire trouvée
+}
+
+type Position = {
+  ligne: number;
+  colonne: number;
+};
+
+function verifierDiagonale(
+  plateau: PlateauPuissance4,
+  depart: Position,
+  joueur: JoueurP4,
+  incrementLigne: 1 | -1,
+): boolean {
+  let compteur = 0;
+  let ligne = depart.ligne;
+  let colonne = depart.colonne;
+  while (
+    ligne >= 0 &&
+    ligne < plateau.hauteur &&
+    colonne >= 0 &&
+    colonne < plateau.largeur
+  ) {
+    const indice = obtenirIndice(plateau, ligne, colonne);
+    if (plateau.cases[indice] === joueur) {
+      compteur++;
+      if (compteur === 4) {
+        return true; // Victoire trouvée
+      }
+    } else {
+      compteur = 0; // Réinitialiser le compteur
+    }
+    ligne += incrementLigne;
+    colonne += 1;
+  }
+  return false; // Pas de victoire trouvée
 }
 
 /**
@@ -82,8 +186,37 @@ export function verifierColonne(plateau: PlateauPuissance4, joueur: CaseP4): boo
  * @param joueur - Type de case à vérifier
  * @returns true si 4 jetons alignés en diagonale, false sinon
  */
-export function verifierDiagonales(plateau: PlateauPuissance4, joueur: CaseP4): boolean {
-  throw new Error("À implémenter");
+export function verifierDiagonales(
+  plateau: PlateauPuissance4,
+  joueur: JoueurP4,
+): boolean {
+  // Diagonales descendantes (\)
+  for (let ligne = 0; ligne < plateau.hauteur - 3; ligne++) {
+    let depart: Position = { ligne: ligne, colonne: 0 };
+    if (verifierDiagonale(plateau, depart, joueur, 1)) {
+      return true;
+    }
+  }
+  for (let colonne = 1; colonne < plateau.largeur - 3; colonne++) {
+    let depart: Position = { ligne: 0, colonne: colonne };
+    if (verifierDiagonale(plateau, depart, joueur, 1)) {
+      return true;
+    }
+  }
+  // Diagonales montante (\)
+  for (let ligne = 3; ligne < plateau.hauteur; ligne++) {
+    let depart: Position = { ligne: ligne, colonne: 0 };
+    if (verifierDiagonale(plateau, depart, joueur, -1)) {
+      return true;
+    }
+  }
+  for (let colonne = 0; colonne < plateau.largeur - 3; colonne++) {
+    let depart: Position = { ligne: plateau.hauteur - 1, colonne: colonne };
+    if (verifierDiagonale(plateau, depart, joueur, -1)) {
+      return true;
+    }
+  }
+  return false; // Pas de victoire trouvée
 }
 
 // ============================================================================
@@ -96,5 +229,5 @@ export function verifierDiagonales(plateau: PlateauPuissance4, joueur: CaseP4): 
  * @returns true si toutes les cases sont occupées, false sinon
  */
 export function verifierMatchNul(plateau: PlateauPuissance4): boolean {
-  throw new Error("À implémenter");
+  return plateau.cases.every((caseP4) => caseP4 !== "vide");
 }

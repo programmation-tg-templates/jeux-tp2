@@ -38,7 +38,7 @@ npm install
 Pour voir votre jeu en action dans le navigateur :
 
 ```bash
-npm run dev
+npm start
 ```
 
 Puis ouvrez votre navigateur à l'adresse indiquée (généralement `http://localhost:5173`).
@@ -49,14 +49,6 @@ Pour exécuter les tests une seule fois :
 
 ```bash
 npm test
-```
-
-### Lancer les tests en mode watch
-
-Pour voir les résultats en temps réel :
-
-```bash
-npm run watch
 ```
 
 Les résultats des tests s'affichent également dans l'interface web !
