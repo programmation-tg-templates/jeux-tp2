@@ -104,8 +104,8 @@ describe("Détection de victoire", () => {
   });
 
   describe("verifierDiagonales", () => {
-    test("détecte diagonale descendante (\\)", () => {
-      // Diagonale \ : (0,5), (1,4), (2,3), (3,2)
+    test("détecte diagonale montante à partir de la colonne 0 (/)", () => {
+      // Diagonale / : (0,5), (1,4), (2,3), (3,2)
       placerJeton(plateau, 0, "joueur1"); // ligne 5
 
       placerJeton(plateau, 1, "joueur2"); // ligne 5
@@ -123,21 +123,71 @@ describe("Détection de victoire", () => {
       expect(verifierDiagonales(plateau, "joueur1")).toBe(true);
     });
 
-    test("détecte diagonale montante (/)", () => {
-      // Diagonale / : (3,5), (2,4), (1,3), (0,2)
+    test("détecte diagonale montante au milieu du plateau (/)", () => {
+      // Diagonale / : (2,5), (3,4), (4,3), (5,2)
+      placerJeton(plateau, 2, "joueur1"); // ligne 5
+
       placerJeton(plateau, 3, "joueur2"); // ligne 5
+      placerJeton(plateau, 3, "joueur1"); // ligne 4
+
+      placerJeton(plateau, 4, "joueur2"); // ligne 5
+      placerJeton(plateau, 4, "joueur2"); // ligne 4
+      placerJeton(plateau, 4, "joueur1"); // ligne 3
+
+      placerJeton(plateau, 5, "joueur2"); // ligne 5
+      placerJeton(plateau, 5, "joueur2"); // ligne 4
+      placerJeton(plateau, 5, "joueur2"); // ligne 3
+      placerJeton(plateau, 5, "joueur1"); // ligne 2
+
+      expect(verifierDiagonales(plateau, "joueur1")).toBe(true);
+    });
+
+    test("détecte diagonale descendante en haut du plateau (\\)", () => {
+      // Diagonale \ : (4,3), (3,2), (2,1), (1,0)
+      placerJeton(plateau, 4, "joueur1"); // ligne 5
+      placerJeton(plateau, 4, "joueur1"); // ligne 4
+      placerJeton(plateau, 4, "joueur2"); // ligne 3
+
+      placerJeton(plateau, 3, "joueur1"); // ligne 5
+      placerJeton(plateau, 3, "joueur1"); // ligne 4
+      placerJeton(plateau, 3, "joueur1"); // ligne 3
+      placerJeton(plateau, 3, "joueur2"); // ligne 2
 
       placerJeton(plateau, 2, "joueur1"); // ligne 5
-      placerJeton(plateau, 2, "joueur2"); // ligne 4
+      placerJeton(plateau, 2, "joueur1"); // ligne 4
+      placerJeton(plateau, 2, "joueur1"); // ligne 3
+      placerJeton(plateau, 2, "joueur1"); // ligne 2
+      placerJeton(plateau, 2, "joueur2"); // ligne 1
 
       placerJeton(plateau, 1, "joueur1"); // ligne 5
       placerJeton(plateau, 1, "joueur1"); // ligne 4
-      placerJeton(plateau, 1, "joueur2"); // ligne 3
+      placerJeton(plateau, 1, "joueur1"); // ligne 3
+      placerJeton(plateau, 1, "joueur1"); // ligne 2
+      placerJeton(plateau, 1, "joueur1"); // ligne 1
+      placerJeton(plateau, 1, "joueur2"); // ligne 0
+
+      expect(verifierDiagonales(plateau, "joueur2")).toBe(true);
+    });
+
+    test("détecte diagonale descendante à partir du bord gauche (\\)", () => {
+      // Diagonale \ : (3,4), (2,3), (1,2), (0,1)
+      placerJeton(plateau, 3, "joueur1"); // ligne 5
+      placerJeton(plateau, 3, "joueur2"); // ligne 4
+
+      placerJeton(plateau, 2, "joueur1"); // ligne 5
+      placerJeton(plateau, 2, "joueur1"); // ligne 4
+      placerJeton(plateau, 2, "joueur2"); // ligne 3
+
+      placerJeton(plateau, 1, "joueur1"); // ligne 5
+      placerJeton(plateau, 1, "joueur1"); // ligne 4
+      placerJeton(plateau, 1, "joueur1"); // ligne 3
+      placerJeton(plateau, 1, "joueur2"); // ligne 2
 
       placerJeton(plateau, 0, "joueur1"); // ligne 5
       placerJeton(plateau, 0, "joueur1"); // ligne 4
       placerJeton(plateau, 0, "joueur1"); // ligne 3
-      placerJeton(plateau, 0, "joueur2"); // ligne 2
+      placerJeton(plateau, 0, "joueur1"); // ligne 2
+      placerJeton(plateau, 0, "joueur2"); // ligne 1
 
       expect(verifierDiagonales(plateau, "joueur2")).toBe(true);
     });
